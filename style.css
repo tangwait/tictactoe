@@ -1,0 +1,26 @@
+body {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    background-color: blanchedalmond;
+    width: 500px;
+    padding: 15px;
+    border-radius: 15px;
+}
+
+.header .playerList {
+    display: flex;
+    justify-content: space-between;
+}
+
+.title, .markButtons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
