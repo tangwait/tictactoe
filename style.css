@@ -17,10 +17,25 @@ body {
 .header .playerList {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    padding: 10px;
 }
 
 .title, .markButtons {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.game {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    height: 100px;
+    width: 100px;
+}
+
+.boxes {
+    border: 1px solid black;
+
 }
