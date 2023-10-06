@@ -19,8 +19,7 @@ const displayBoard = () => {
 
 
 class player {
-    constructor(name, mark) {
-        this.name = name;
+    constructor(mark) {
         this.mark = mark;
     }
 }
@@ -29,19 +28,27 @@ class player {
 //player 2 gets other mark
 
 function selectMark(selectedMark) {
-    const xmark = document.querySelector('.xmark')
-    const omark = document.querySelector('.omark');
+    const xmarkButton = document.getElementById('xmark');
+    const omarkButton = document.getElementById('omark');
 
-    if (selectedMark === 'X') {
-        mark = 'X';
-        xmark.style.display = 'none';
-        xmark.style.display = 'block';
-    } else if (selectedMark === 'O') {
-        mark = 'O';
-        omark.style.display = 'none';
-        omark.style.display = 'block';
-    };
+    xmarkButton.addEventListener('click', function() {
+        const player1 = new player('X')
+        const player2 = new player('O')
+
+        console.log('Player 1 mark: ' + player1.mark);
+        console.log('Player 2 mark: ' + player2.mark);
+    });
+
+    omarkButton.addEventListener('click', function() {
+        const player1 = new player('O')
+        const player2 = new player('X')
+        
+        console.log('Player 1 mark: ' + player1.mark);
+        console.log('Player 2 mark: ' + player2.mark);
+    });
 };
+
+selectMark();
 
 // player clicks x/o > store mark > put mark on page
 function createMark(mark) {
