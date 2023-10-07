@@ -17,36 +17,38 @@ const displayBoard = () => {
     }
 }
 
+let player1, player2;
 
 class player {
     constructor(mark) {
         this.mark = mark;
     }
+    
+    getMark() {
+        console.log(this.mark);
+    }
 }
 
-//2 players > type in name = new player > player1 picks mark >
-//player 2 gets other mark
-
-function selectMark(selectedMark) {
+function selectMark() {
     const xmarkButton = document.getElementById('xmark');
     const omarkButton = document.getElementById('omark');
 
     xmarkButton.addEventListener('click', function() {
-        const player1 = new player('X')
-        const player2 = new player('O')
+        player1 = new player('X')
+        player2 = new player('O')
 
         console.log('Player 1 mark: ' + player1.mark);
         console.log('Player 2 mark: ' + player2.mark);
     });
 
     omarkButton.addEventListener('click', function() {
-        const player1 = new player('O')
-        const player2 = new player('X')
+        player1 = new player('O')
+        player2 = new player('X')
         
         console.log('Player 1 mark: ' + player1.mark);
         console.log('Player 2 mark: ' + player2.mark);
     });
-};
+}
 
 selectMark();
 
