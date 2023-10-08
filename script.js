@@ -2,10 +2,6 @@ class player {
     constructor(mark) {
         this.mark = mark;
     }
-
-    getMark() {
-        console.log(this.mark);
-    }
 }
 
 const game = {
@@ -44,7 +40,6 @@ const game = {
         });
     },
     createMark: function (event) {
-        console.log('createMark called');
         const selectedBox = event.target;
         const selectedBoxIndex = Array.from(selectedBox.parentNode.children).indexOf(selectedBox);
     
@@ -87,7 +82,6 @@ const game = {
         return result;
     },
     updateDesc: function (result) {
-        console.log('updateDesc called with result:', result);
         const desc = document.querySelector('.desc');
 
         if (result === 'draw') {
