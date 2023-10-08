@@ -45,16 +45,19 @@ const game = {
         });
     },
     createMark: function (event) {
+        console.log('createMark called');
         const selectedBox = event.target;
         const selectedBoxIndex = Array.from(selectedBox.parentNode.children).indexOf(selectedBox);
     
         if (game.gameboard[selectedBoxIndex] === 'X' || game.gameboard[selectedBoxIndex] === 'O') {
             return;        
         }
+
+        const result = game.determineWinner();
         game.gameboard[selectedBoxIndex] = game.currentPlayer;
         selectedBox.textContent = game.currentPlayer;
         game.currentPlayer = game.currentPlayer === 'X' ? 'O' : 'X';
-        game.determineWinner();
+        game.updateDesc(result);
     },
     determineWinner: function () {
         const winCombos = [
@@ -62,8 +65,6 @@ const game = {
             [0, 3, 6], [1, 4, 7], [2, 5, 8],
             [0, 4, 8], [2, 4, 6]
         ]; 
-    
-        let draw = true;
 
         for (const combos of winCombos) {
             const [a, b, c] = combos;
@@ -74,29 +75,32 @@ const game = {
 
         for (let i = 0; i < this.gameboard.length; i++) {
             if (this.gameboard[i] !== 'X' && this.gameboard[i] !== 'O') {
-                return 'draw';
+                return null;
             }
         }
-        return null;
+        return 'draw';
     },
     updateDesc: function (result) {
+        console.log('updateDesc called with result:', result);
         const desc = document.querySelector('.desc');
 
         if (result === 'draw') {
             desc.textContent = "It's a draw!"
-        } else if (result) {
+        } else if (result === 'X' || result ==='O') {
             desc.textContent = `${result} wins the game`
         } else {
-            desc.textContent = '';
+            desc.textContent = 'hello';
         }
     },
     resetGame: function () {
         const resetGameButton = document.getElementById('resetGame');
 
         resetGameButton.addEventListener('click', () => {
+            const result = this.determineWinner();
+
             this.player1 = null;
             this.player2 = null;
-            this.updateDesc();
+            this.updateDesc(result);
             this.currentPlayer = 'X';
 
             this.gameboard = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
@@ -105,20 +109,13 @@ const game = {
             boxes.forEach((box) => {
                 box.textContent = '';
             });
-
-            this.updateDesc();
         });
     }
 }
-
-// if 3 in a row > determine winner or tie or gameOver >
-// updateDesc > resetGame
-
-//after every mark > run determineWinner
 
 
 game.selectMark();
 game.displayBoard();
 const result = game.determineWinner();
-game.updateDesc(result);
 game.resetGame();
+console.log(result)
