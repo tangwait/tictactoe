@@ -9,7 +9,7 @@ class player {
 }
 
 const game = {
-    gameboard: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+    gameboard: [0, 1, 2, 3, 4, 5, 6, 7, 8],
     currentPlayer: 'X',
     player1: null,
     player2: null,
@@ -52,10 +52,11 @@ const game = {
             return;        
         }
 
-        const result = game.determineWinner();
+
         game.gameboard[selectedBoxIndex] = game.currentPlayer;
         selectedBox.textContent = game.currentPlayer;
         game.currentPlayer = game.currentPlayer === 'X' ? 'O' : 'X';
+        const result = game.determineWinner();
         game.updateDesc(result);
     },
     determineWinner: function () {
@@ -94,7 +95,7 @@ const game = {
         } else if (result === 'X' || result ==='O') {
             desc.textContent = `${result} wins the game`
         } else {
-            desc.textContent = 'hello';
+            desc.textContent = 'Pick X or O';
         }
     },
     updatePlayerText: function() {
@@ -108,7 +109,6 @@ const game = {
         const resetGameButton = document.getElementById('resetGame');
 
         resetGameButton.addEventListener('click', () => {
-            const result = this.determineWinner();
             const player1Text = document.getElementById('player1');
             const player2Text = document.getElementById('player2');
     
@@ -117,7 +117,8 @@ const game = {
 
             this.player1 = null;
             this.player2 = null;
-            this.updateDesc(result);
+
+            this.updateDesc('');
             this.currentPlayer = 'X';
 
             this.gameboard = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
