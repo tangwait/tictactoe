@@ -33,13 +33,20 @@ body {
     grid-template-rows: repeat(3, 1fr);
     padding: 10px;
     justify-items: center;
-    height: auto;
+    align-items: center;
+    height: 300px;
+    width: 300px;
+    margin: 0 auto;
 }
 
 .boxes {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
     border: 1px solid black;
-    width: 100%; 
-    padding-top: 100%;
+    width: 100px;
+    height: 100px;
     box-sizing: border-box;
 }
 
