@@ -28,20 +28,19 @@ const game = {
         const xmarkButton = document.getElementById('xmark');
         const omarkButton = document.getElementById('omark');
     
-        xmarkButton.addEventListener('click', function() {
+        //arrow function preserves this. to game function 
+        xmarkButton.addEventListener('click', () => {
             this.player1 = new player('X')
             this.player2 = new player('O')
     
-            console.log('Player 1 mark: ' + this.player1.mark);
-            console.log('Player 2 mark: ' + this.player2.mark);
+            game.updatePlayerText();
         });
     
-        omarkButton.addEventListener('click', function() {
+        omarkButton.addEventListener('click', () => {
             this.player1 = new player('O')
             this.player2 = new player('X')
             
-            console.log('Player 1 mark: ' + this.player1.mark);
-            console.log('Player 2 mark: ' + this.player2.mark);
+            game.updatePlayerText();
         });
     },
     createMark: function (event) {
@@ -69,16 +68,22 @@ const game = {
         for (const combos of winCombos) {
             const [a, b, c] = combos;
             if (this.gameboard[a] && this.gameboard[a] === this.gameboard [b] && this.gameboard[a] === this.gameboard[c]) {
-                return this.gameboard[a];
+                const result = this.gameboard[a];
+                game.updateDesc(result);
+                return result;
             }
         }
 
         for (let i = 0; i < this.gameboard.length; i++) {
             if (this.gameboard[i] !== 'X' && this.gameboard[i] !== 'O') {
-                return null;
+                const result = null;
+                game.updateDesc(result);
+                return result;
             }
         }
-        return 'draw';
+        const result = 'draw';
+        game.updateDesc(result);
+        return result;
     },
     updateDesc: function (result) {
         console.log('updateDesc called with result:', result);
@@ -92,11 +97,23 @@ const game = {
             desc.textContent = 'hello';
         }
     },
+    updatePlayerText: function() {
+        const player1Text = document.getElementById('player1');
+        const player2Text = document.getElementById('player2');
+
+        player1Text.textContent = ('Player 1: ' + game.player1.mark);
+        player2Text.textContent = ('Player 2: ' + game.player2.mark);
+    },
     resetGame: function () {
         const resetGameButton = document.getElementById('resetGame');
 
         resetGameButton.addEventListener('click', () => {
             const result = this.determineWinner();
+            const player1Text = document.getElementById('player1');
+            const player2Text = document.getElementById('player2');
+    
+            player1Text.textContent = ('Player 1');
+            player2Text.textContent = ('Player 2');
 
             this.player1 = null;
             this.player2 = null;
@@ -118,4 +135,3 @@ game.selectMark();
 game.displayBoard();
 const result = game.determineWinner();
 game.resetGame();
-console.log(result)
